@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-your-dev-key-h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.railway.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com']
 
 # ================= AUTHENTICATION SETTINGS =================
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -113,21 +113,16 @@ WSGI_APPLICATION = 'blogproject.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+import dj_database_url  # Make sure this is at the top
 
-# Railway PostgreSQL database - this overrides for production
-DATABASE_URL = os.environ.get('DATABASE_URL')
-if DATABASE_URL:
-    DATABASES['default'] = dj_database_url.config(
-        default=DATABASE_URL,
+# Database configuration
+DATABASES = {
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
         conn_max_age=600,
         conn_health_checks=True,
     )
+}
 
 
 # Password validation
