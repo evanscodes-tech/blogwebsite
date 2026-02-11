@@ -2,6 +2,7 @@ services:
   - type: web
     name: blogwebsite
     runtime: python
+    plan: free
     buildCommand: |
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
@@ -15,12 +16,12 @@ services:
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - key: DJANGO_DEBUG
-        value: false
+        value: "false"      # ← CHANGED: false → "false" (with quotes!)
       - key: PYTHON_VERSION
-        value: 3.11.9
+        value: "3.11.9"    # ← CHANGED: Added quotes for consistency
 
 databases:
   - name: blog-db
+    plan: free
     databaseName: blogdb
     user: bloguser
-    plan: free
