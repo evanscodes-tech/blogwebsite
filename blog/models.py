@@ -126,7 +126,7 @@ class Comment(models.Model):
     post = models.ForeignKey(
         Post,  # References Post model defined above
         on_delete=models.CASCADE,
-        related_name='comments'
+        related_name='post_comments'
     )
     
     # Link to which user (author of comment)
